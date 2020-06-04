@@ -3,7 +3,7 @@ require "pry"
 
 class Owner
 
-  attr_reader :name, :species
+  attr_reader :name, :species, :buy_cat
 
   @@all = []
     
@@ -41,6 +41,41 @@ class Owner
         dog.owner == self
       end
     end
+
+    def buy_cat(name)
+      Cat.new(name, self)
+  
+    end
+
+    def buy_dog(name)
+      Dog.new(name, self)
+    end
+
+    def walk_dogs
+      Dog.all.map do |dog|
+        dog.mood = "happy"
+      end
+    end
+
+    def feed_cats
+      Cat.all.map do |cat|
+        cat.mood = "happy"
+      end
+    end
+
+    def sell_pets
+      (Dog.all + Cat.all).map do |animal|
+        animal.mood = "nervous"
+      end
+      (Dog.all + Cat.all).map do |animal|
+        animal.owner = nil
+      end
+    end
+
+    def list_pets
+      "I have #{dogs.count} dog(s), and #{cats.count} cat(s)."
+    end
+
 
   end
 
